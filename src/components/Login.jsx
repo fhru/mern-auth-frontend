@@ -19,10 +19,9 @@ function Login() {
     useEffect(() => {
         if (isSuccess) {
             navigate('/dashboard');
-            dispatch(reset()); // Reset setelah navigasi berhasil
+            dispatch(reset());
         }
     }, [isSuccess, dispatch, navigate]);
-
 
     const handleSubmit = (e) => {
         e.preventDefault()

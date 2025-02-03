@@ -29,16 +29,11 @@ function Sidebar() {
             <aside id="default-sidebar" className="fixed z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div className="px-3 py-4 overflow-y-auto bg-neutral-50 dark:bg-neutral-900 h-full">
                     <ul className="space-y-2 font-medium">
+                        <li className="text-white/50 tracking-tighter text-sm">General</li>
                         <li>
                             <NavLink to={"/dashboard"} className={`flex items-center p-2 text-neutral-900 rounded-lg dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-700 group ${location.pathname.includes('dashboard') ? 'bg-neutral-700' : ''}`}>
                                 <HiOutlineChartPie className="size-6 text-orange-600 group-hover:text-orange-600/50" />
                                 <span className="ms-3">Dashboard</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={"/users"} className={`flex items-center p-2 text-neutral-900 rounded-lg dark:text-white hover:bg-neutral-700 group ${location.pathname.includes('users') ? 'bg-neutral-700' : ''}`}>
-                                <HiOutlineUsers className="size-6 text-orange-600 group-hover:text-orange-600/50" />
-                                <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
                             </NavLink>
                         </li>
                         <li>
@@ -47,6 +42,19 @@ function Sidebar() {
                                 <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
                             </NavLink>
                         </li>
+                        {user && user.role === 'admin' && (
+                            <>
+                                <li className="text-white/50 tracking-tighter text-sm">Admin</li>
+                                <li>
+                                    <NavLink to={"/users"} className={`flex items-center p-2 text-neutral-900 rounded-lg dark:text-white hover:bg-neutral-700 group ${location.pathname.includes('users') ? 'bg-neutral-700' : ''}`}>
+                                        <HiOutlineUsers className="size-6 text-orange-600 group-hover:text-orange-600/50" />
+                                        <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+
+                        <li className="text-white/50 tracking-tighter text-sm">Settings</li>
                         <li>
                             <div type="button" onClick={logout} className="flex items-center p-2 text-neutral-900 rounded-lg dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-700 group cursor-pointer">
                                 <HiArrowRightOnRectangle className="size-6 text-orange-600 group-hover:text-orange-600/50" />
