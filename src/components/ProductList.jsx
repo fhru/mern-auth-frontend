@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { HiPlus } from 'react-icons/hi2';
+import { HiOutlineTrash, HiPencilSquare, HiPlus } from 'react-icons/hi2';
 import { Link } from 'react-router-dom'
 
 function ProductList() {
@@ -28,8 +28,8 @@ function ProductList() {
                     <h1 className="text-5xl font-bold tracking-tighter">Products</h1>
                     <h2 className="text-xl font-medium text-white/50 tracking-tighter">List Of Product</h2>
                 </div>
-                <Link to={"/products/add"} className='flex items-center gap-1 py-2.5 px-4 bg-blue-600 font-medium rounded-md hover:bg-blue-800 transition-all'>
-                    <HiPlus className='size-5' />
+                <Link to={"/products/add"} className='flex items-center gap-1 p-2.5 bg-blue-950 font-medium rounded-md hover:bg-blue-900 transition-all text-blue-600'>
+                    <HiPlus className='size-4' />
                     Add
                 </Link>
             </div>
@@ -37,7 +37,7 @@ function ProductList() {
                 <table className="w-full text-sm text-left text-gray-400">
                     <thead className="text-orange-500 uppercase bg-orange-950">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 rounded-tl-lg">
                                 No
                             </th>
                             <th scope="col" className="px-6 py-3">
@@ -49,16 +49,17 @@ function ProductList() {
                             <th scope="col" className="px-6 py-3">
                                 Created By
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 rounded-tr-lg">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map((product, index) => {
+                            const isLastRow = index === products.length - 1;
                             return (
-                                <tr className="border-b bg-neutral-900 border-gray-700" key={product.uuid}>
-                                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
+                                <tr className={`bg-neutral-900 ${isLastRow ? 'rounded-br-lg rounded-bl-lg' : 'border-b border-gray-700'}`} key={product.uuid}>
+                                    <th scope="row" className={`px-6 py-4 font-medium text-white whitespace-nowrap ${isLastRow ? 'rounded-bl-lg' : ''}`}>
                                         {index + 1}
                                     </th>
                                     <td className="px-6 py-4">
@@ -67,21 +68,27 @@ function ProductList() {
                                     <td className="px-6 py-4">
                                         {product.price}
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 capitalize">
                                         {product.user.name}
                                     </td>
-                                    <td className="px-6 py-4 space-x-2">
+                                    <td className={`px-6 py-4 space-x-2 ${isLastRow ? 'rounded-br-lg' : ''}`}>
                                         <Link
                                             to={`/products/edit/${product.uuid}`}
-                                            className='py-2.5 px-4 bg-blue-600 rounded-md text-white font-medium text-sm hover:bg-blue-800 transition-all hover:text-white/50'
+                                            className='py-2.5 px-4 bg-blue-950 rounded-md text-blue-600 font-medium text-sm hover:bg-blue-900 transition-all inline-flex items-center gap-1'
                                         >
+                                            <HiPencilSquare className='size-4' />
                                             Edit
                                         </Link>
                                         <button
                                             type='button'
-                                            className='px-4 py-2.5 bg-red-600 text-white text-sm rounded-md hover:bg-red-800 hover:text-white/50 transition-all'
-                                            onClick={() => deleteProduct(product.uuid)}
+                                            className='px-4 py-2.5 bg-red-950 text-red-600 text-sm rounded-md hover:bg-red-900  transition-all inline-flex items-center gap-1'
+                                            onClick={() => {
+                                                if (window.confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                                                    deleteProduct(product.uuid);
+                                                }
+                                            }}
                                         >
+                                            <HiOutlineTrash className='size-4' />
                                             Delete
                                         </button>
                                     </td>

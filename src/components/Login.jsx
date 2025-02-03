@@ -39,7 +39,6 @@ function Login() {
                         type="text"
                         name="email"
                         id="email"
-                        placeholder="example@mail.com"
                         className="w-full p-2.5 rounded-lg outline-none text-white/50 placeholder:text-white/50 focus:ring-2 ring-neutral-800"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -52,7 +51,6 @@ function Login() {
                         name="password"
                         id="password"
                         className="placeholder:text-white/50 w-full p-2.5 rounded-lg outline-none text-white/50 focus:ring-2 ring-neutral-800"
-                        placeholder='••••••••'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
